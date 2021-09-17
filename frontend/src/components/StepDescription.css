@@ -1,0 +1,73 @@
+.description-item-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    width: 450px;
+    height: 45px;
+    background-color: #FDFDFD;
+    box-shadow: 1px 1px 8px #c9c9c9be;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.step-btns-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+input:focus {
+    outline: none !important;
+}
+
+input:focus + .step-btns-div {
+}
+
+input {
+    border-radius: 3px;
+    border: 0ch;
+    height: 95%;
+    width: 300px;
+    font-size: 17px;
+    margin-left: 25px;
+}
+
+.outdent-btn {
+    border-width: 0ch;
+    background-color: transparent;
+    padding: 2px;
+    width: auto;
+    height: auto;
+}
+
+
+.indent-btn {
+    margin-right: 20px;
+    border-width: 0ch;
+    background-color: transparent;
+    padding: 2px;
+    width: auto;
+    height: auto;
+}
+
+.close-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    border-width: 0ch;
+    background-color: transparent;
+    padding: 1px;
+    width: auto;
+    height: auto;
+}
+
+
+
+
+
+
+

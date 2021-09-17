@@ -1,0 +1,33 @@
+.step-div {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    align-items: center;
+}
+
+#description-pane-container {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    height: 700px;
+    max-height: 60%;
+    margin-left: 100px;
+    width: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: auto;
+    box-shadow: 1px 3px 8px #c9c9c9be;
+    background-color: #FDFDFD;
+    border-radius: 5px;
+  }
+
+.step-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    margin-left: 50px;
+    width: 100%;
+}
