@@ -1,12 +1,12 @@
 
-export async function sendDataToServer(data) {
+export async function sendDataToServer(data, sessionTime, videoID) {
 
     data = pruneData(data);
 
-    data = {descriptions: data}
+    data = {video_id: videoID, session_time: sessionTime, descriptions: data}
 
     return fetch('http://localhost:9000/userData', {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },

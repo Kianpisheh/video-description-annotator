@@ -3,17 +3,13 @@ var router = express.Router();
 var db = require('../db');
 
 
-router.put("/", (req, res) => {
+router.post("/", (req, res) => {
 
     // update the database
     saveData(db, req.body)
     console.log(req.body)
+    res.send();
 });
-
-async function listDatabases(db) {
-    const databasesList = await db.client.db().admin().listDatabases();
-    console.log(databasesList);
-}
 
 async function saveData(db, data) {
     try {

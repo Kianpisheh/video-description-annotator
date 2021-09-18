@@ -5,13 +5,13 @@ import "./DescriptionPane.css";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import StepDescription from "./StepDescription";
-import {sendDataToServer} from "../apiCalls"
-
+import { sendDataToServer } from "../apiCalls"
 
 export default class DescriptionPane extends React.Component {
 	constructor(props) {
 		super(props);
 		this.counter = 0;
+		this.sessionTime = ""
 		this.state = {
 			descriptions: [{ key: 0, mode: "writing", level: 1, selected: true, text: "" }],
 		};
@@ -32,6 +32,7 @@ export default class DescriptionPane extends React.Component {
 		this.deleteItems = this.deleteItems.bind(this);
 		this.getPrevSibling = this.getPrevSibling.bind(this);
 		this.groupDescriptions = this.groupDescriptions.bind(this);
+		this.getSessionTime = this.getSessionTime.bind(this);
 
 		this.handleSingleClick = this.handleSingleClick.bind(this);
 		this.handleBlur = this.handleBlur.bind(this);
@@ -40,6 +41,10 @@ export default class DescriptionPane extends React.Component {
 	}
 
 	render() {
+
+		if (this.counter === 2) {
+			this.sessionTime = this.getSessionTime();
+		}
 
 		let descriptionListG = this.groupDescriptions([...this.state.descriptions]);
 
@@ -63,18 +68,24 @@ export default class DescriptionPane extends React.Component {
 
 		return <DragDropContext onDragEnd={this.handleDragEnd}>
 			<Droppable droppableId="description-pane-droppable" >
-					{(provided) => (<div id="description-pane-container" ref={provided.innerRef} {...provided.droppableProps}>{stepComponentsList}{provided.placeholder}</div>)}
+				{(provided) => (<div id="description-pane-container" ref={provided.innerRef} {...provided.droppableProps}>{stepComponentsList}{provided.placeholder}</div>)}
 			</Droppable>
 		</DragDropContext>
 
 	}
 
 	componentDidUpdate() {
-		console.log("update")
+
 	}
 
 	componentDidMount() {
 		fetch("http://localhost:3000").then(res => (console.log(res.text()))).catch(err => err)
+	}
+
+	getSessionTime() {
+		let d = new Date();
+		const sessionTime = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}-${d.getHours()}-${d.getMinutes()}`;
+		return sessionTime;
 	}
 
 	groupDescriptions(descriptions) {
@@ -111,15 +122,15 @@ export default class DescriptionPane extends React.Component {
 		const destinationStepIndex = result.destination.index;
 
 		let steps = this.groupDescriptions(items);
-		let destinationOffset  = destinationStepIndex > sourceStepIndex ? 1 : 0;
-		let sourceOffset  = destinationStepIndex > sourceStepIndex ? 0 : 1;
-		
+		let destinationOffset = destinationStepIndex > sourceStepIndex ? 1 : 0;
+		let sourceOffset = destinationStepIndex > sourceStepIndex ? 0 : 1;
+
 		// move a copy of source step into the new location
 		steps.splice(destinationStepIndex + destinationOffset, 0, steps[sourceStepIndex]);
 		// remove the old copy of source step
 		steps.splice(sourceStepIndex + sourceOffset, 1);
-	
-		this.setState({descriptions: steps.flat()});
+		sendDataToServer(items, this.sessionTime, this.props.videoID);
+		this.setState({ descriptions: steps.flat() });
 	}
 
 	handleSingleClick(key, txt) {
@@ -146,6 +157,7 @@ export default class DescriptionPane extends React.Component {
 		} else if (txt === "" && items.length > 1) {
 			items = this.removeWritingStep(items);
 		}
+		sendDataToServer(items, this.sessionTime, this.props.videoID);
 		this.setState({ descriptions: items });
 	}
 
@@ -184,6 +196,7 @@ export default class DescriptionPane extends React.Component {
 				// do not delete everything
 				if (descIndexList.length < items.length) {
 					items = this.deleteItems(items, descIndexList);
+					sendDataToServer(items, this.sessionTime, this.props.videoID);
 					this.setState({ descriptions: items });
 				}
 			}
@@ -207,7 +220,7 @@ export default class DescriptionPane extends React.Component {
 				[items, newStepIndex] = this.addStepAfter(items, key, "writing", null);
 				items[newStepIndex].selected = true;
 				items[newStepIndex].mode = "writing";
-				sendDataToServer(items);
+				sendDataToServer(items, this.sessionTime, this.props.videoID);
 				this.setState({ descriptions: items });
 			}
 		}
@@ -234,6 +247,7 @@ export default class DescriptionPane extends React.Component {
 								descIndexList,
 								"level_increase"
 							);
+							sendDataToServer(items);
 							this.setState({ descriptions: items });
 						}
 					}
@@ -246,6 +260,7 @@ export default class DescriptionPane extends React.Component {
 							descIndexList,
 							"level_decrease"
 						);
+						sendDataToServer(items, this.sessionTime, this.props.videoID);
 						this.setState({ descriptions: items });
 					}
 				}
@@ -354,9 +369,6 @@ export default class DescriptionPane extends React.Component {
 			this.setState({ descriptions: items });
 		}
 	}
-
-	// TODO: action icons + some styling
-	// TODO: drag to rearrange sub-steps
 
 	// TODO:
 	// 1) next-prev video

@@ -46,7 +46,7 @@ class App extends React.Component {
                 <div id="player-container">
                     <VideoPlayer id="video-player" {...videoOptions} />
                 </div>
-                <DescriptionPane id="description-pane" />
+                <DescriptionPane id="description-pane" videoID="ocean" />
             </div>
         );
     }
