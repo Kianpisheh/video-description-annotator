@@ -84,7 +84,7 @@ export default class DescriptionPane extends React.Component {
 
 	getSessionTime() {
 		let d = new Date();
-		const sessionTime = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}-${d.getHours()}-${d.getMinutes()}`;
+		const sessionTime = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}-${d.getHours()}-${d.getMinutes()}-${d.getSeconds()}`;
 		return sessionTime;
 	}
 
@@ -129,7 +129,7 @@ export default class DescriptionPane extends React.Component {
 		steps.splice(destinationStepIndex + destinationOffset, 0, steps[sourceStepIndex]);
 		// remove the old copy of source step
 		steps.splice(sourceStepIndex + sourceOffset, 1);
-		sendDataToServer(items, this.sessionTime, this.props.videoID);
+		sendDataToServer(items, this.sessionTime, this.props.videoID, this.props.user);
 		this.setState({ descriptions: steps.flat() });
 	}
 
@@ -157,7 +157,7 @@ export default class DescriptionPane extends React.Component {
 		} else if (txt === "" && items.length > 1) {
 			items = this.removeWritingStep(items);
 		}
-		sendDataToServer(items, this.sessionTime, this.props.videoID);
+		sendDataToServer(items, this.sessionTime, this.props.videoID, this.props.user);
 		this.setState({ descriptions: items });
 	}
 
@@ -196,7 +196,7 @@ export default class DescriptionPane extends React.Component {
 				// do not delete everything
 				if (descIndexList.length < items.length) {
 					items = this.deleteItems(items, descIndexList);
-					sendDataToServer(items, this.sessionTime, this.props.videoID);
+					sendDataToServer(items, this.sessionTime, this.props.videoID, this.props.user);
 					this.setState({ descriptions: items });
 				}
 			}
@@ -220,7 +220,7 @@ export default class DescriptionPane extends React.Component {
 				[items, newStepIndex] = this.addStepAfter(items, key, "writing", null);
 				items[newStepIndex].selected = true;
 				items[newStepIndex].mode = "writing";
-				sendDataToServer(items, this.sessionTime, this.props.videoID);
+				sendDataToServer(items, this.sessionTime, this.props.videoID, this.props.user);
 				this.setState({ descriptions: items });
 			}
 		}
@@ -247,7 +247,7 @@ export default class DescriptionPane extends React.Component {
 								descIndexList,
 								"level_increase"
 							);
-							sendDataToServer(items);
+							sendDataToServer(items, this.sessionTime, this.props.videoID, this.props.user);
 							this.setState({ descriptions: items });
 						}
 					}
@@ -260,7 +260,7 @@ export default class DescriptionPane extends React.Component {
 							descIndexList,
 							"level_decrease"
 						);
-						sendDataToServer(items, this.sessionTime, this.props.videoID);
+						sendDataToServer(items, this.sessionTime, this.props.videoID, this.props.user);
 						this.setState({ descriptions: items });
 					}
 				}

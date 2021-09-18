@@ -8,8 +8,8 @@ var db = require('./db');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var testAPIRouter = require('./routes/testAPI');
-//var loginRouter = require('./routes/login');
+// var testAPIRouter = require('./routes/testAPI');
+var loginRouter = require('./routes/login');
 var userDataRouter = require("./routes/userData")
 
 var app = express(); 
@@ -28,8 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use("/testAPI", testAPIRouter);
-//app.use("/login", loginRouter);
+// app.use("/testAPI", testAPIRouter);
+app.use("/login", loginRouter);
 app.use("/userData", userDataRouter);
 
 // connect to the database

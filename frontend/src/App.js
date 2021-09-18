@@ -14,6 +14,7 @@ class App extends React.Component {
         super(props);
         this.state = { apiResponse: "" };
         this.state ={token: ""};
+        this.user = "";
 
         this.setToken = this.setToken.bind(this);
         this.getToken = this.getToken.bind(this);
@@ -46,20 +47,23 @@ class App extends React.Component {
                 <div id="player-container">
                     <VideoPlayer id="video-player" {...videoOptions} />
                 </div>
-                <DescriptionPane id="description-pane" videoID="ocean" />
+                <DescriptionPane id="description-pane" videoID="ocean" user={this.user} />
             </div>
         );
     }
 
 
-    setToken(userToken) {
+    setToken(userToken, username) {
         sessionStorage.setItem('token', JSON.stringify(userToken));
+        this.user = username;
+        sessionStorage.setItem('user', this.user);
         this.forceUpdate();
     }
     
     getToken() {
         const tokenString = sessionStorage.getItem('token');
         const userToken = JSON.parse(tokenString);
+        this.user = sessionStorage.getItem('user');
         return userToken?.token
     }
 

@@ -12,8 +12,7 @@ async function loginUser(credentials) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(credentials)
-    })
-        .then(data => console.log(data))
+    }).then(data => data.json())
 }
 
 
@@ -25,10 +24,11 @@ export default function Login({ setToken }) {
     const handleSubmit = async e => {
         e.preventDefault();
         const token = await loginUser({
-          username,
-          password
+            username,
+            password
         });
-        setToken(token);
+        console.log(token)
+        setToken(token, username);
     }
 
 
@@ -36,19 +36,19 @@ export default function Login({ setToken }) {
         <div id="login-container">
             <h1 id="login-title">Login</h1>
             <form autoComplete={"off"} onSubmit={handleSubmit}>
-            <div id='username-label-div'>
-                <label>
-                    <input className="login-text-input" type="text" placeholder="username" onChange={e => setUserName(e.target.value)} />
-                </label>
-            </div>
-            <div id='password-label-div'>
-                <label>
-                    <input className="login-text-input" type="password" placeholder="password" autoComplete={"off"} onChange={e => setPassword(e.target.value)} />
-                </label>
-            </div>
-            <div id='login-btn-div'>
-                <button type="submit" onClick={() => (console.log("button clicked"))}>Login</button>
-            </div>
+                <div id='username-label-div'>
+                    <label>
+                        <input className="login-text-input" type="text" placeholder="username" onChange={e => setUserName(e.target.value)} />
+                    </label>
+                </div>
+                <div id='password-label-div'>
+                    <label>
+                        <input className="login-text-input" type="password" placeholder="password" autoComplete={"off"} onChange={e => setPassword(e.target.value)} />
+                    </label>
+                </div>
+                <div id='login-btn-div'>
+                    <button type="submit">Login</button>
+                </div>
             </form>
         </div >
     )
