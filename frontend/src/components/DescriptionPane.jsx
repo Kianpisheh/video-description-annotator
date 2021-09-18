@@ -1,9 +1,12 @@
 import React from "react";
 
-import StepDescription from "./StepDescription";
 
 import "./DescriptionPane.css";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+
+import StepDescription from "./StepDescription";
+import {sendDataToServer} from "../apiCalls"
+
 
 export default class DescriptionPane extends React.Component {
 	constructor(props) {
@@ -204,6 +207,7 @@ export default class DescriptionPane extends React.Component {
 				[items, newStepIndex] = this.addStepAfter(items, key, "writing", null);
 				items[newStepIndex].selected = true;
 				items[newStepIndex].mode = "writing";
+				sendDataToServer(items);
 				this.setState({ descriptions: items });
 			}
 		}

@@ -17,6 +17,10 @@ html, body, #root, .App {
   height: 100%;
 }
 
+/* #root {
+  background-color:  #FDFDFD;
+} */
+
 #main-container {
   position:absolute;
   top: 20%;

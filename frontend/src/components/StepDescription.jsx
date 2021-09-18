@@ -18,7 +18,6 @@ export default class StepDescription extends React.Component {
         return (
             <div className="description-item-div" id={"description-item_" + this.props.id.toString()} style={config.itemDivStyle}>
                 <input
-                    className="input-text"
                     id={"description-text_" + this.props.id.toString()}
                     className="description-text"
                     key={this.props.sid}
@@ -44,21 +43,21 @@ export default class StepDescription extends React.Component {
                         id={"outdent_btn_" + this.props.id.toString()}
                         onClick={(event) => this.props.onKeyPress(this.props.id, "outdent_btn", event)}
                     >
-                        <img className="indentation-btn-img" src={outdent_btn}></img>
+                        <img className="indentation-btn-img" src={outdent_btn} alt="indent"></img>
                     </button>
                     <button
                         className="indent-btn"
                         id={"indent_btn_" + this.props.id.toString()}
-                        onClick={(event) => this.props.onKeyPress(this.props.id, "indent_btn", event)}
+                        onClick={(event) => this.props.onKeyPress(this.props.id, "<-", event)}
                     >
-                        <img className="indentation-btn-img" src={indent_btn}></img>
+                        <img className="indentation-btn-img" src={indent_btn} alt="->"></img>
                     </button>
                     <button
                         className="close-btn"
                         id={"indent_btn_" + this.props.id.toString()}
                         onClick={(event) => this.props.onKeyPress(this.props.id, "close_btn", event)}
                     >
-                        <img className="close-btn-img" src={close_btn}></img>
+                        <img className="close-btn-img" src={close_btn} alt="X"></img>
                     </button>
                 </div>
             </div>
