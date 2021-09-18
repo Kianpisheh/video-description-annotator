@@ -3,6 +3,8 @@ export async function sendDataToServer(data) {
 
     data = pruneData(data);
 
+    data = {descriptions: data}
+
     return fetch('http://localhost:9000/userData', {
         method: 'PUT',
         headers: {

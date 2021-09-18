@@ -4,8 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
-
-const {MongoClient} = require('mongodb');
+var db = require('./db');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -34,7 +33,7 @@ app.use("/testAPI", testAPIRouter);
 app.use("/userData", userDataRouter);
 
 // connect to the database
-
+db.connect();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
