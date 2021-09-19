@@ -22,6 +22,10 @@ html, body, #root, .App {
 } */
 
 #main-container {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
   position:absolute;
   top: 20%;
   width: 100%;
@@ -32,10 +36,9 @@ html, body, #root, .App {
   flex-direction: row;
 }
 
-#player-container {
-  width: 50%;
+/* #player-container {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-}
+} */
 

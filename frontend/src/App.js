@@ -32,7 +32,7 @@ class App extends React.Component {
             controlBar: {
                 fullscreenToggle: false,
             },
-            sources: [{ src: "//vjs.zencdn.net/v/oceans.mp4", type: "video/mp4" }],
+            sources: [{src: "https://github.com/videojs/videojs-vr/blob/main/samples/eagle-360.mp4"},{ src: "//vjs.zencdn.net/v/oceans.mp4", type: "video/mp4" }],
         };
 
 
