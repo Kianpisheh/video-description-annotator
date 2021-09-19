@@ -74,12 +74,14 @@ export default class DescriptionPane extends React.Component {
 
 	}
 
-	componentDidUpdate() {
-
+	componentDidUpdate(prevProps) {
+		if (prevProps.videoID !== this.props.videoID) {
+			this.setState({descriptions: [{ key: 0, mode: "writing", level: 1, selected: true, text: "" }]});
+		}
 	}
 
 	componentDidMount() {
-		fetch("http://localhost:3000").then(res => (console.log(res.text()))).catch(err => err)
+		//fetch("http://localhost:3000").then(res => (console.log(res.text()))).catch(err => err)
 	}
 
 	getSessionTime() {
@@ -157,7 +159,7 @@ export default class DescriptionPane extends React.Component {
 		} else if (txt === "" && items.length > 1) {
 			items = this.removeWritingStep(items);
 		}
-		sendDataToServer(items, this.sessionTime, this.props.videoID, this.props.user);
+		//sendDataToServer(items, this.sessionTime, this.props.videoID, this.props.user);
 		this.setState({ descriptions: items });
 	}
 
@@ -329,8 +331,6 @@ export default class DescriptionPane extends React.Component {
 			this.setState({ descriptions: items });
 		}
 
-
-
 		else if (event.which === 40 || event.which === 38) {
 			items = [...this.state.descriptions];
 			const oldIndex = this.getIndex(items, key, 0);
@@ -371,8 +371,6 @@ export default class DescriptionPane extends React.Component {
 	}
 
 	// TODO:
-	// 1) next-prev video
-	// 2) saving the description
 	// 4) add guiddance (key bindings, ...)
 	// 5) record timestamp
 	// 6) record video control events (number of times, and types (jump to the future/past))

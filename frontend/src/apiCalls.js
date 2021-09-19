@@ -12,7 +12,7 @@ export async function sendDataToServer(data, sessionTime, videoID, user) {
         },
         body: JSON.stringify(data)
     })
-    .then(data => data.json())
+    .then(data => {})
 }
 
 function pruneData(data) {

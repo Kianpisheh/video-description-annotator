@@ -12,30 +12,18 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { apiResponse: "" };
-        this.state ={token: ""};
+        this.state = { videoId: "", token: "" };
         this.user = "";
 
         this.setToken = this.setToken.bind(this);
         this.getToken = this.getToken.bind(this);
+        this.handleVideoPlay = this.handleVideoPlay.bind(this);
 
     }
 
 
     render() {
-        var videoOptions = {
-            controls: true,
-            preload: "auto",
-            autoplay: false,
-            height: 400,
-            width: 600,
-            controlBar: {
-                fullscreenToggle: false,
-            },
-            sources: [{src: "https://github.com/videojs/videojs-vr/blob/main/samples/eagle-360.mp4"},{ src: "//vjs.zencdn.net/v/oceans.mp4", type: "video/mp4" }],
-        };
-
-
+        
         const token = this.getToken();
 
         if (!token) {
@@ -45,11 +33,29 @@ class App extends React.Component {
         return (
             <div id="main-container">
                 <div id="player-container">
-                    <VideoPlayer id="video-player" {...videoOptions} />
+                    <VideoPlayer id="video-player" onVideoPlay={this.handleVideoPlay} />
                 </div>
-                <DescriptionPane id="description-pane" videoID="ocean" user={this.user} />
+                <DescriptionPane id="description-pane" videoID={this.state.videoId} user={this.user} />
             </div>
         );
+    }
+
+    handleVideoPlay(videoUrl) {
+        
+        // remove time from the url
+        let newUrl = videoUrl;
+        if (videoUrl.includes('&t=')) {
+            const urlFirstHalf = videoUrl.split('&t=')[0];
+            let urlSecondHalf = videoUrl.split('&t=')[1];
+            if (urlSecondHalf.includes("&v=")) {
+                urlSecondHalf = '&v=' + urlSecondHalf.split('&v=')[1];
+            }
+            newUrl = urlFirstHalf + urlSecondHalf;
+        }
+        
+        if (this.state.videoId !== newUrl) {
+            this.setState({videoId: newUrl})
+        }
     }
 
 
