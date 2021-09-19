@@ -5,7 +5,7 @@ export async function sendDataToServer(data, sessionTime, videoID, user) {
 
     data = {video_id: videoID, session_time: sessionTime, descriptions: data, user: user}
 
-    return fetch('http://localhost:9000/userData', {
+    return fetch('https://secret-gorge-06842.herokuapp.com/userData', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -25,4 +25,9 @@ export default class VideoPlayer extends React.Component {
             />
         );
     }
+
+    componentDidMount() {
+        
+    }
+
 }

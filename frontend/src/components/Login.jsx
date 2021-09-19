@@ -6,7 +6,7 @@ import "./Login.css"
 
 
 async function loginUser(credentials) {
-    return fetch('http://localhost:9000/login', {
+    return fetch('https://secret-gorge-06842.herokuapp.com/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

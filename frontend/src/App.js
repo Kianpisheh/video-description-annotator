@@ -21,7 +21,6 @@ class App extends React.Component {
 
     }
 
-
     render() {
         
         const token = this.getToken();
@@ -58,7 +57,6 @@ class App extends React.Component {
         }
     }
 
-
     setToken(userToken, username) {
         sessionStorage.setItem('token', JSON.stringify(userToken));
         this.user = username;
@@ -72,7 +70,6 @@ class App extends React.Component {
         this.user = sessionStorage.getItem('user');
         return userToken?.token
     }
-
 
     callAPI() {
         fetch("http://localhost:9000/testAPI")
