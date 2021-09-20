@@ -4,7 +4,7 @@ var router = express.Router();
 
 router.post("/", (req, res) => {
 	const clientEnteredPassword = req.body.password;
-    if (clientEnteredPassword === "12345") {
+    if (clientEnteredPassword === "apple") {
         res.send({
             token: "test123"
         });

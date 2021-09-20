@@ -24,7 +24,7 @@ export default class StepDescription extends React.Component {
                     ref={this.textInputRef}
                     type="text"
                     placeholder="type here..."
-                    maxLength="50"
+                    maxLength="90"
                     size="30"
                     autoComplete="off"
                     draggable={true}

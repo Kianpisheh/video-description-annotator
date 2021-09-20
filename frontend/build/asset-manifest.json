@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ce122f99.chunk.css",
+    "main.js": "/static/js/main.c9428669.chunk.js",
+    "main.js.map": "/static/js/main.c9428669.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.bf3c7c7a.js",
+    "runtime-main.js.map": "/static/js/runtime-main.bf3c7c7a.js.map",
+    "static/css/2.2b476541.chunk.css": "/static/css/2.2b476541.chunk.css",
+    "static/js/2.5965accf.chunk.js": "/static/js/2.5965accf.chunk.js",
+    "static/js/2.5965accf.chunk.js.map": "/static/js/2.5965accf.chunk.js.map",
+    "static/js/3.e8e80834.chunk.js": "/static/js/3.e8e80834.chunk.js",
+    "static/js/3.e8e80834.chunk.js.map": "/static/js/3.e8e80834.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.2b476541.chunk.css.map": "/static/css/2.2b476541.chunk.css.map",
+    "static/css/main.ce122f99.chunk.css.map": "/static/css/main.ce122f99.chunk.css.map",
+    "static/js/2.5965accf.chunk.js.LICENSE.txt": "/static/js/2.5965accf.chunk.js.LICENSE.txt",
+    "static/media/close_btn.0eb860d3.svg": "/static/media/close_btn.0eb860d3.svg",
+    "static/media/indent_btn.1259e6a7.svg": "/static/media/indent_btn.1259e6a7.svg",
+    "static/media/outdent_btn.3d8a08ed.svg": "/static/media/outdent_btn.3d8a08ed.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bf3c7c7a.js",
+    "static/css/2.2b476541.chunk.css",
+    "static/js/2.5965accf.chunk.js",
+    "static/css/main.ce122f99.chunk.css",
+    "static/js/main.c9428669.chunk.js"
+  ]
+}
