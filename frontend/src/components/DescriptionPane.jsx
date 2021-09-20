@@ -38,6 +38,7 @@ export default class DescriptionPane extends React.Component {
 		this.handleBlur = this.handleBlur.bind(this);
 		this.handleKeyAction = this.handleKeyAction.bind(this);
 		this.handleDragEnd = this.handleDragEnd.bind(this);
+		this.handleWindowResize = this.handleWindowResize.bind(this);
 	}
 
 	render() {
@@ -81,7 +82,26 @@ export default class DescriptionPane extends React.Component {
 	}
 
 	componentDidMount() {
-		//fetch("http://localhost:3000").then(res => (console.log(res.text()))).catch(err => err)
+		window.addEventListener("resize", this.handleWindowResize)
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener("resize", this.handleWindowResize)
+	}
+
+	handleWindowResize() {
+		// const windowWidth = window.innerWidth;
+		// const windowHeight = window.innerHeight;
+		// if (windowWidth < 1600) {
+		//     let paneContainer = document.getElementById("description-pane-container");
+		// 	paneContainer.style.width = 490;
+		// } else {
+		// 	let paneContainer = document.getElementById("description-pane-container");
+		// 	paneContainer.style.width = 550;
+		// }
+
+		// console.log("width: ", windowWidth);
+		// console.log("height: ", windowHeight);
 	}
 
 	getSessionTime() {

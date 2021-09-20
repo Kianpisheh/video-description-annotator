@@ -24,9 +24,6 @@ input:focus {
     outline: none !important;
 }
 
-input:focus + .step-btns-div {
-}
-
 input {
     border-radius: 3px;
     border: 0ch;

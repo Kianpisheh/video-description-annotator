@@ -17,7 +17,7 @@ export default class VideoPlayer extends React.Component {
         return (
             <ReactPlayer
             ref={this.videoRef}
-                url="https://youtu.be/lrcDzmIGXWs?list=PL-3W-zZzHzX_3T63nVAH5EmNAhxBIUed7"
+                url="https://youtu.be/bfF4PATuQ0s?list=PLUb0DMgBZVOOdt6VnxipIjbFQWesrJkr3"
                 onPlay={() => {
                     this.props.onVideoPlay(this.videoRef.current?.player?.player?.player?.getVideoUrl());
                 }}

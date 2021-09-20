@@ -11,8 +11,8 @@
     flex-direction: column;
     height: 700px;
     max-height: 60%;
-    margin-left: 100px;
-    width: 600px;
+    margin-left: 3%;
+    width: 550px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -28,6 +28,6 @@
     align-items: flex-start;
     margin-top: 7px;
     margin-bottom: 7px;
-    margin-left: 50px;
-    width: 100%;
+    padding-left: 8%;
+    width: auto;
 }
