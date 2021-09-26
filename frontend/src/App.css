@@ -32,3 +32,15 @@ html, body, #root, .App {
   flex-direction: row;
 }
 
+#player-container {
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+}
+
+#video-player {
+  align-self: flex-end;
+  justify-self: flex-end;
+  width: 100%; 
+}
+
