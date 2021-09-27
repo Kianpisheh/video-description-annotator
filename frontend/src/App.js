@@ -6,6 +6,8 @@ import VideoPlayer from "./components/VideoPlayer";
 import DescriptionPane from "./components/DescriptionPane";
 import Login from "./components/Login";
 import TaskDescription from "./components/TaskDescription";
+import StepProposition from "./components/StepProposition";
+import PropositionsPane from "./components/PropositionsPane"
 
 import "./App.css";
 
@@ -23,26 +25,27 @@ class App extends React.Component {
     render() {
         const token = this.getToken();
 
-        if (!token) {
-            return <Login setToken={this.setToken} />;
-        }
+        // if (!token) {
+        //     return <Login setToken={this.setToken} />;
+        // }
 
         var taskDescription1 =
             "Please describe the activity in the following video in terms of the steps taken by the actor to perform the activity";
         return (
             <div id="main-container">
-                <div id="player-container">
+                <PropositionsPane rows={5} cols={35} options={['sometimes', "usually", "always"]}></PropositionsPane>
+                {/* <div id="player-container">
                     <TaskDescription
                         id="task-description-1"
                         description={taskDescription1}
                     />
-                    <VideoPlayer id="video-player" onVideoPlay={this.handleVideoPlay} />
+                    <VideoPlayer id="video-player" width='600px' height='350px' onVideoPlay={this.handleVideoPlay} />
                 </div>
                 <DescriptionPane
                     id="description-pane"
                     videoID={this.state.videoId}
                     user={this.user}
-                />
+                /> */}
             </div>
         );
     }

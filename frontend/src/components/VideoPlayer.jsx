@@ -22,6 +22,8 @@ export default class VideoPlayer extends React.Component {
                     this.props.onVideoPlay(this.videoRef.current?.player?.player?.player?.getVideoUrl());
                 }}
                 controls
+                width={this.props.width}
+                height={this.props.height}
             />
         );
     }

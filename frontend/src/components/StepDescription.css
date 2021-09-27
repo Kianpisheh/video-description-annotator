@@ -20,11 +20,11 @@
     justify-content: flex-end;
 }
 
-input:focus {
+#description-text:focus {
     outline: none !important;
 }
 
-input {
+#description-text {
     border-radius: 3px;
     border: 0ch;
     height: 95%;

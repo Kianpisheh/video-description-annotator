@@ -20,7 +20,7 @@ export default class StepDescription extends React.Component {
                 <input
                     id={"description-text_" + this.props.id.toString()}
                     className="description-text"
-                    key={this.props.sid}
+                    key={this.props.id}
                     ref={this.textInputRef}
                     type="text"
                     placeholder="type here..."
