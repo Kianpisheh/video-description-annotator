@@ -35,11 +35,10 @@
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active
-{
- -webkit-box-shadow: 0 0 0 30px white inset !important;
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
 .login-text-input {
@@ -51,7 +50,7 @@ input:-webkit-autofill:active
     text-indent: 10px;
 }
 
-button {
+#login-btn {
     background-color: #2bb46f;
     border-width: 0em;
     border-radius: 8px;

@@ -13,11 +13,14 @@
   color: white;
 }
 
-html, body, #root, .App {
+html,
+body,
+#root,
+.App {
   height: 100%;
 }
 
-#main-container {
+/* #main-container {
   align-items: center;
   justify-content: center;
   display: flex;
@@ -30,7 +33,7 @@ html, body, #root, .App {
   vertical-align: middle;
   display: flex;
   flex-direction: row;
-}
+} */
 
 #player-container {
   display: flex;
@@ -38,9 +41,9 @@ html, body, #root, .App {
   height: 600px;
 }
 
+/* 
 #video-player {
   align-self: flex-end;
   justify-self: flex-end;
   width: 100%; 
-}
-
+} */

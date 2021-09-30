@@ -2,17 +2,11 @@ import React from "react";
 
 function TaskDescription(props) {
     return (
-        <div
-            className="task-description-div"
-            style={{
-                width: "100%",
-                height: 80,
-                alignSelf: "flex-start",
-                marginBottom: 100,
-                background: "#ECEEF7",
-            }}
-        >
+        <React.Fragment>
+            <h5 style={{ marginBottom: "3px" }}>Task description</h5>
             <textarea
+                readOnly
+                rows={8}
                 style={{
                     wordWrap: "break-all",
                     boxSizing: "border-box",
@@ -29,7 +23,7 @@ function TaskDescription(props) {
             >
                 {props.description}
             </textarea>
-        </div>
+        </React.Fragment>
     );
 }
 

@@ -47,7 +47,7 @@ export default function Login({ setToken }) {
                     </label>
                 </div>
                 <div id='login-btn-div'>
-                    <button type="submit">Login</button>
+                    <button id="login-btn" type="submit">Login</button>
                 </div>
             </form>
         </div >

@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./StepProposition.css"
+
 export default class StepProposition extends React.Component {
     constructor(props) {
         super(props);
@@ -16,6 +18,7 @@ export default class StepProposition extends React.Component {
                 style={{ padding: "10px"}}
             >
                 <textarea
+                    className="textarea"
                     key={id.toString()}
                     readOnly={!data.selected}
                     ref={this.textAreaRef}
@@ -30,9 +33,10 @@ export default class StepProposition extends React.Component {
                         fontSize: "16px",
                         lineHeight: data.selected ? "130%" : "180%",
                         borderRadius: "5px",
+                        borderColor: "gray",
                         cursor: data.selected ? "text" : "pointer"
                     }}
-                    onBlur={() => this.props.handleUnselected(parseInt(this.props.id), this.textAreaRef.current.value)}
+                    onBlur={(event) => this.props.handleUnselected(parseInt(this.props.id), this.textAreaRef.current.value, event)}
                     onFocus={() =>
                         this.props.handleSelected(
                             parseInt(this.props.id),

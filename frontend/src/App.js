@@ -2,12 +2,13 @@ import React from "react";
 
 import "video.js/dist/video-js.css";
 
+import Task2Page from "./pages/Task2Page";
 import VideoPlayer from "./components/VideoPlayer";
 import DescriptionPane from "./components/DescriptionPane";
 import Login from "./components/Login";
 import TaskDescription from "./components/TaskDescription";
 import StepProposition from "./components/StepProposition";
-import PropositionsPane from "./components/PropositionsPane"
+import PropositionsPane from "./components/PropositionsPane";
 
 import "./App.css";
 
@@ -20,6 +21,7 @@ class App extends React.Component {
         this.setToken = this.setToken.bind(this);
         this.getToken = this.getToken.bind(this);
         this.handleVideoPlay = this.handleVideoPlay.bind(this);
+        this.handleNavifationButtonClick = this.handleNavifationButtonClick.bind(this);
     }
 
     render() {
@@ -29,25 +31,16 @@ class App extends React.Component {
         //     return <Login setToken={this.setToken} />;
         // }
 
-        var taskDescription1 =
-            "Please describe the activity in the following video in terms of the steps taken by the actor to perform the activity";
         return (
-            <div id="main-container">
-                <PropositionsPane rows={5} cols={35} options={['sometimes', "usually", "always"]}></PropositionsPane>
-                {/* <div id="player-container">
-                    <TaskDescription
-                        id="task-description-1"
-                        description={taskDescription1}
-                    />
-                    <VideoPlayer id="video-player" width='600px' height='350px' onVideoPlay={this.handleVideoPlay} />
-                </div>
-                <DescriptionPane
-                    id="description-pane"
-                    videoID={this.state.videoId}
-                    user={this.user}
-                /> */}
-            </div>
+            <Task2Page
+                handleVideoPlay={this.handleVideoPlay}
+                handleNavifationButtonClick={this.handleNavifationButtonClick}
+            ></Task2Page>
         );
+    }
+
+    handleNavifationButtonClick(btn) {
+        console.log(btn);
     }
 
     handleVideoPlay(videoUrl) {
