@@ -19,14 +19,14 @@ export default function TaskNavigation(props) {
         <div className="task-navigation-container" style={{ display: "flex", gap: "50px" }}>
             <button
                 className="prev-task"
-                onClick={props.handleNavifationButtonClick("prev")}
+                onClick={() => props.handleNavigationButtonClick(props.currentPage, "prev")}
                 style={btnStyle}
             >
                 <img id="prev-btn-img" src={prev_btn} alt="."></img> Previous Task
             </button>
             <button
                 className="next-task"
-                onClick={props.handleNavifationButtonClick("next")}
+                onClick={() => props.handleNavigationButtonClick(props.currentPage, "next")}
                 style={btnStyle}
             >
                 Next Task <img id="prev-btn-img" src={next_btn} alt="."></img>

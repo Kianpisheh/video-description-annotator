@@ -5,14 +5,11 @@
     align-items: center;
 }
 
-#description-pane-container {
+#description-pane-droppable-div {
     align-items: flex-start;
     display: flex;
     flex-direction: column;
-    height: 600px;
     max-height: 60%;
-    margin-left: 3%;
-    width: 550px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -20,7 +17,7 @@
     box-shadow: 1px 3px 8px #c9c9c9be;
     background-color: #FDFDFD;
     border-radius: 5px;
-  }
+}
 
 .step-div {
     display: flex;

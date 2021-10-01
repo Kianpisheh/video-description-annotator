@@ -1,19 +1,22 @@
 import React from "react";
 
-
 import "./DescriptionPane.css";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import StepDescription from "./StepDescription";
-import { sendDataToServer } from "../apiCalls"
+import { sendDataToServer } from "../apiCalls";
+
+import UserContext from "../contexts/UserContext";
 
 export default class DescriptionPane extends React.Component {
 	constructor(props) {
 		super(props);
 		this.counter = 0;
-		this.sessionTime = ""
+		this.sessionTime = "";
 		this.state = {
-			descriptions: [{ key: 0, mode: "writing", level: 1, selected: true, text: "" }],
+			descriptions: [
+				{ key: 0, mode: "writing", level: 1, selected: true, text: "" },
+			],
 		};
 		this.counter += 1;
 
@@ -41,8 +44,9 @@ export default class DescriptionPane extends React.Component {
 		this.handleWindowResize = this.handleWindowResize.bind(this);
 	}
 
-	render() {
+	static contextType = UserContext;
 
+	render() {
 		if (this.counter === 2) {
 			this.sessionTime = this.getSessionTime();
 		}
@@ -50,43 +54,68 @@ export default class DescriptionPane extends React.Component {
 		let descriptionListG = this.groupDescriptions([...this.state.descriptions]);
 
 		let stepComponentsList = descriptionListG.map((stepList, index) => (
-			<Draggable draggableId={index.toString()} key={index.toString()} index={index}>
-				{(provided) => (<div key={index.toString()} id={index.toString()} className="step-div" {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-					{stepList.map((item, index) => (
-						<StepDescription
-							id={item.key.toString()}
-							key={item.key.toString()}
-							onSingleClick={this.handleSingleClick}
-							onDoubleClick={this.handleDoubleClick}
-							onBlur={this.handleBlur}
-							onKeyPress={this.handleKeyAction}
-							item={item}
-						/>
-					))}
-				</div>)}
+			<Draggable
+				draggableId={index.toString()}
+				key={index.toString()}
+				index={index}>
+				{(provided) => (
+					<div
+						key={index.toString()}
+						id={index.toString()}
+						className="step-div"
+						{...provided.draggableProps}
+						{...provided.dragHandleProps}
+						ref={provided.innerRef}>
+						{stepList.map((item, index) => (
+							<StepDescription
+								id={item.key.toString()}
+								key={item.key.toString()}
+								onSingleClick={this.handleSingleClick}
+								onDoubleClick={this.handleDoubleClick}
+								onBlur={this.handleBlur}
+								onKeyPress={this.handleKeyAction}
+								item={item}
+							/>
+						))}
+					</div>
+				)}
 			</Draggable>
 		));
 
-		return <DragDropContext onDragEnd={this.handleDragEnd}>
-			<Droppable droppableId="description-pane-droppable" >
-				{(provided) => (<div id="description-pane-container" ref={provided.innerRef} {...provided.droppableProps}>{stepComponentsList}{provided.placeholder}</div>)}
-			</Droppable>
-		</DragDropContext>
-
+		return (
+			<DragDropContext onDragEnd={this.handleDragEnd}>
+				<Droppable droppableId="description-pane-droppable">
+					{(provided) => (
+						<div
+							id="description-pane-droppable-div"
+							style={{ width: this.props.width, height: this.props.height }}
+							ref={provided.innerRef}
+							{...provided.droppableProps}>
+							{stepComponentsList}
+							{provided.placeholder}
+						</div>
+					)}
+				</Droppable>
+			</DragDropContext>
+		);
 	}
 
 	componentDidUpdate(prevProps) {
 		if (prevProps.videoID !== this.props.videoID) {
-			this.setState({descriptions: [{ key: 0, mode: "writing", level: 1, selected: true, text: "" }]});
+			this.setState({
+				descriptions: [
+					{ key: 0, mode: "writing", level: 1, selected: true, text: "" },
+				],
+			});
 		}
 	}
 
 	componentDidMount() {
-		window.addEventListener("resize", this.handleWindowResize)
+		window.addEventListener("resize", this.handleWindowResize);
 	}
 
 	componentWillUnmount() {
-		window.removeEventListener("resize", this.handleWindowResize)
+		window.removeEventListener("resize", this.handleWindowResize);
 	}
 
 	handleWindowResize() {
@@ -99,14 +128,14 @@ export default class DescriptionPane extends React.Component {
 		// 	let paneContainer = document.getElementById("description-pane-container");
 		// 	paneContainer.style.width = 550;
 		// }
-
 		// console.log("width: ", windowWidth);
 		// console.log("height: ", windowHeight);
 	}
 
 	getSessionTime() {
 		let d = new Date();
-		const sessionTime = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}-${d.getHours()}-${d.getMinutes()}-${d.getSeconds()}`;
+		const sessionTime = `${d.getFullYear()}-${d.getMonth() + 1
+			}-${d.getDate()}-${d.getHours()}-${d.getMinutes()}-${d.getSeconds()}`;
 		return sessionTime;
 	}
 
@@ -151,7 +180,7 @@ export default class DescriptionPane extends React.Component {
 		steps.splice(destinationStepIndex + destinationOffset, 0, steps[sourceStepIndex]);
 		// remove the old copy of source step
 		steps.splice(sourceStepIndex + sourceOffset, 1);
-		sendDataToServer(items, this.sessionTime, this.props.videoID, this.props.user);
+		sendDataToServer(items, this.sessionTime, this.props.videoID, this.context);
 		this.setState({ descriptions: steps.flat() });
 	}
 
@@ -187,7 +216,7 @@ export default class DescriptionPane extends React.Component {
 		let items = [...this.state.descriptions];
 
 		// del --> delete step
-		if (event.which === 46 || (event.type === 'click' && txt === 'close_btn')) {
+		if (event.which === 46 || (event.type === "click" && txt === "close_btn")) {
 			let currentStepIndex = null;
 			if (key === null) {
 				// delete (window listener)
@@ -197,7 +226,11 @@ export default class DescriptionPane extends React.Component {
 				currentStepIndex = this.getIndex(items, key, 0);
 			}
 
-			if ((items[currentStepIndex].selected || (event.type === 'click' && txt === 'close_btn')) && items.length >= 2) {
+			if (
+				(items[currentStepIndex].selected ||
+					(event.type === "click" && txt === "close_btn")) &&
+				items.length >= 2
+			) {
 				// select the previous/next step
 				items = this.deselectAll(items);
 				const descIndexList = this.getDescendents(items, currentStepIndex);
@@ -218,12 +251,16 @@ export default class DescriptionPane extends React.Component {
 				// do not delete everything
 				if (descIndexList.length < items.length) {
 					items = this.deleteItems(items, descIndexList);
-					sendDataToServer(items, this.sessionTime, this.props.videoID, this.props.user);
+					sendDataToServer(
+						items,
+						this.sessionTime,
+						this.props.videoID,
+						this.context
+					);
 					this.setState({ descriptions: items });
 				}
 			}
 		}
-
 
 		// Enter --> nex step (writing)
 		else if (event.which === 13 && txt !== "") {
@@ -242,7 +279,12 @@ export default class DescriptionPane extends React.Component {
 				[items, newStepIndex] = this.addStepAfter(items, key, "writing", null);
 				items[newStepIndex].selected = true;
 				items[newStepIndex].mode = "writing";
-				sendDataToServer(items, this.sessionTime, this.props.videoID, this.props.user);
+				sendDataToServer(
+					items,
+					this.sessionTime,
+					this.props.videoID,
+					this.context
+				);
 				this.setState({ descriptions: items });
 			}
 		}
@@ -257,7 +299,11 @@ export default class DescriptionPane extends React.Component {
 				const descIndexList = this.getDescendents(items, currentStepIndex);
 				// only tab
 				if (!event.shiftKey || txt === "indent_btn") {
-					if ((items[currentStepIndex].mode === "writing" || txt === "indent_btn") && items.length > 1) {
+					if (
+						(items[currentStepIndex].mode === "writing" ||
+							txt === "indent_btn") &&
+						items.length > 1
+					) {
 						if (
 							items[currentStepIndex - 1].level >=
 							items[currentStepIndex].level &&
@@ -269,11 +315,17 @@ export default class DescriptionPane extends React.Component {
 								descIndexList,
 								"level_increase"
 							);
-							sendDataToServer(items, this.sessionTime, this.props.videoID, this.props.user);
+							sendDataToServer(
+								items,
+								this.sessionTime,
+								this.props.videoID,
+								this.context
+							);
 							this.setState({ descriptions: items });
 						}
 					}
-				} if (event.shiftKey || txt === "outdent_btn") {
+				}
+				if (event.shiftKey || txt === "outdent_btn") {
 					// shift + tab
 					if (items[currentStepIndex].level >= 2) {
 						items[currentStepIndex].level -= 1;
@@ -282,7 +334,12 @@ export default class DescriptionPane extends React.Component {
 							descIndexList,
 							"level_decrease"
 						);
-						sendDataToServer(items, this.sessionTime, this.props.videoID, this.props.user);
+						sendDataToServer(
+							items,
+							this.sessionTime,
+							this.props.videoID,
+							this.context
+						);
 						this.setState({ descriptions: items });
 					}
 				}
@@ -301,7 +358,8 @@ export default class DescriptionPane extends React.Component {
 			}
 
 			// update the selected item
-			if (txt !== "") { // keep the old item
+			if (txt !== "") {
+				// keep the old item
 				items[oldIndex].text = txt;
 				items[oldIndex].selected = false;
 				items[oldIndex].mode = "not_writing";
@@ -309,8 +367,8 @@ export default class DescriptionPane extends React.Component {
 				// select the new item
 				items[oldIndex + 1].selected = true;
 				items[oldIndex + 1].mode = "writing";
-
-			} else { // must be removed
+			} else {
+				// must be removed
 				items = this.removeItem(items, oldIndex);
 
 				// select the new item
@@ -332,7 +390,8 @@ export default class DescriptionPane extends React.Component {
 			}
 
 			// update the selected item
-			if (txt !== "") { // keep the old item
+			if (txt !== "") {
+				// keep the old item
 				items[oldIndex].text = txt;
 				items[oldIndex].selected = false;
 				items[oldIndex].mode = "not_writing";
@@ -340,8 +399,8 @@ export default class DescriptionPane extends React.Component {
 				// select the new item
 				items[oldIndex - 1].selected = true;
 				items[oldIndex - 1].mode = "writing";
-
-			} else { // must be removed
+			} else {
+				// must be removed
 				items = this.removeItem(items, oldIndex);
 
 				// select the new item
@@ -349,9 +408,7 @@ export default class DescriptionPane extends React.Component {
 				items[oldIndex - 1].mode = "writing";
 			}
 			this.setState({ descriptions: items });
-		}
-
-		else if (event.which === 40 || event.which === 38) {
+		} else if (event.which === 40 || event.which === 38) {
 			items = [...this.state.descriptions];
 			const oldIndex = this.getIndex(items, key, 0);
 
@@ -361,7 +418,8 @@ export default class DescriptionPane extends React.Component {
 			// take care of the old selected item
 			let oldItemIsRemoved = false;
 			if (txt === "") {
-				if (items.length > 1) { // should be  deleted
+				if (items.length > 1) {
+					// should be  deleted
 					items = this.removeItem(items, oldIndex);
 					oldItemIsRemoved = true;
 				} else {
@@ -375,13 +433,14 @@ export default class DescriptionPane extends React.Component {
 
 			// selected the new item (already know that items.length > 1)
 			let newIndex = oldIndex;
-			if (event.which === 40) {  // down
+			if (event.which === 40) {
+				// down
 				if (!oldItemIsRemoved && oldIndex < items.length - 1) {
 					newIndex = oldIndex + 1;
 				}
-			} else { // up
-				if (oldIndex > 0)
-					newIndex = oldIndex - 1;
+			} else {
+				// up
+				if (oldIndex > 0) newIndex = oldIndex - 1;
 			}
 			items = this.deselectAll(items);
 			items[newIndex].selected = true;
@@ -390,16 +449,9 @@ export default class DescriptionPane extends React.Component {
 		}
 	}
 
-	// TODO:
-	// 4) add guiddance (key bindings, ...)
-	// 5) record timestamp
-	// 6) record video control events (number of times, and types (jump to the future/past))
-
 	getIndex(stateItems, descriptionKey, offset) {
 		let items = [...stateItems];
-		let itemIndex = items
-			.map((item) => item.key)
-			.indexOf(parseInt(descriptionKey));
+		let itemIndex = items.map((item) => item.key).indexOf(parseInt(descriptionKey));
 		if (itemIndex >= 0) {
 			return itemIndex + offset;
 		}
@@ -417,9 +469,7 @@ export default class DescriptionPane extends React.Component {
 
 	setModeByKey(stateItems, descriptionKey, mode) {
 		let items = [...stateItems];
-		let itemIndex = items
-			.map((item) => item.key)
-			.indexOf(parseInt(descriptionKey));
+		let itemIndex = items.map((item) => item.key).indexOf(parseInt(descriptionKey));
 		if (itemIndex >= 0) {
 			items[itemIndex].mode = mode;
 		} else {
@@ -431,9 +481,7 @@ export default class DescriptionPane extends React.Component {
 
 	getMode(stateItems, descriptionKey, offset) {
 		let items = [...stateItems];
-		let itemIndex = items
-			.map((item) => item.key)
-			.indexOf(parseInt(descriptionKey));
+		let itemIndex = items.map((item) => item.key).indexOf(parseInt(descriptionKey));
 		if (items[itemIndex + offset] !== undefined) {
 			return items[itemIndex + offset].mode;
 		}
@@ -482,7 +530,7 @@ export default class DescriptionPane extends React.Component {
 			mode: mode,
 			level: mLevel,
 			selected: true,
-			text: ""
+			text: "",
 		});
 		this.counter += 1;
 

@@ -1,3 +1,5 @@
+import { useHistory } from "react-router";
+
 import "./Task1Page.css";
 
 import VideoPlayer from "../components/VideoPlayer";
@@ -9,41 +11,37 @@ export default function Task1Page(props) {
 	const taskDescription =
 		"Please describe the activity which is performed in the video in terms of the steps that are taken by the actor to acomplish the activity?";
 
+	const history = useHistory();
 	return (
 		<div id="main-container">
 			<h1 style={{ flexGrow: 2 }}>Task 1</h1>
 			<div id="left-and-right-panes-container">
-				<div id="player-container">
-					<div id="left-pane-div">
-						<div id="task-description-div">
-							<TaskDescription
-								id="task-description-1"
-								description={taskDescription}
-							/>
-						</div>
-						<div id="video-player-div">
-							<VideoPlayer
-								id="video-player"
-								width="600px"
-								height="350px"
-								onVideoPlay={props.handleVideoPlay}
-							/>
-						</div>
+				<div id="left-pane-div">
+					<div id="task-description-div">
+						<TaskDescription
+							id="task-description-1"
+							description={taskDescription}
+						/>
+					</div>
+					<div id="video-player-div">
+						<VideoPlayer
+							id="video-player"
+							width="600px"
+							height="350px"
+							onVideoPlay={props.handleVideoPlay}
+						/>
 					</div>
 				</div>
 				<div id="right-pane-div">
 					<h5 style={{ marginBottom: "3px" }}>Please type here</h5>
-					<DescriptionPane
-						id="description-pane"
-						videoID={props.videoId}
-						user={props.user}
-					/>
+					<DescriptionPane id="description-pane" width={550} height={600} />
 				</div>
 			</div>
 			<div id="task-navigation-div">
 				<TaskNavigation
-					handleNavifationButtonClick={
-						props.handleNavifationButtonClick
+					currentPage="task1"
+					handleNavigationButtonClick={
+						props.handleNavigationButtonClick
 					}></TaskNavigation>
 			</div>
 		</div>
