@@ -1,0 +1,34 @@
+#main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+}
+
+#main-pane {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: flex-start;
+    height: 100%;
+}
+
+#page-title {
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+}
+
+#description-pane {
+    display: flex;
+    flex-direction: column;
+}
+
+#task-navigation-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 10%;
+}

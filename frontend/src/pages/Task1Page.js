@@ -1,5 +1,3 @@
-import { useHistory } from "react-router";
-
 import "./Task1Page.css";
 
 import VideoPlayer from "../components/VideoPlayer";
@@ -8,10 +6,6 @@ import TaskDescription from "../components/TaskDescription";
 import TaskNavigation from "../components/TaskNavigation";
 
 export default function Task1Page(props) {
-	const taskDescription =
-		"Please describe the activity which is performed in the video in terms of the steps that are taken by the actor to acomplish the activity?";
-
-	const history = useHistory();
 	return (
 		<div id="main-container">
 			<h1 style={{ flexGrow: 2 }}>Task 1</h1>
@@ -20,12 +14,14 @@ export default function Task1Page(props) {
 					<div id="task-description-div">
 						<TaskDescription
 							id="task-description-1"
-							description={taskDescription}
+							description={props.taskDescription}
+							width={600}
 						/>
 					</div>
 					<div id="video-player-div">
 						<VideoPlayer
 							id="video-player"
+							videoUrl={props.videoUrl}
 							width="600px"
 							height="350px"
 							onVideoPlay={props.handleVideoPlay}
@@ -39,7 +35,6 @@ export default function Task1Page(props) {
 			</div>
 			<div id="task-navigation-div">
 				<TaskNavigation
-					currentPage="task1"
 					handleNavigationButtonClick={
 						props.handleNavigationButtonClick
 					}></TaskNavigation>

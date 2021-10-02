@@ -1,23 +1,20 @@
 import React from "react";
 
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
-
-import "video.js/dist/video-js.css";
-
 import LoginPage from "./pages/LoginPage";
-import Task2Page from "./pages/Task2Page";
-import Task1Page from "./pages/Task1Page";
+import TaskPage from "./pages/TaskPage";
 
 import { UserProvider } from "./contexts/UserContext";
+
+import getStudyData from "./ActivityData";
 
 import "./App.css";
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { videoId: "", token: "", currentPage: "/task1" };
+		this.state = { videoId: "", token: "", currentTask: 0 };
 		this.user = "";
-		this.currentPage = "task1";
+		this.taskSequence = null;
 
 		this.setToken = this.setToken.bind(this);
 		this.getToken = this.getToken.bind(this);
@@ -32,78 +29,33 @@ class App extends React.Component {
 			return <LoginPage setToken={this.setToken} />;
 		}
 
-		let page = (
-			<Task1Page
-				videoId={this.state.videoId}
-				handleVideoPlay={this.handleVideoPlay}
-				handleNavigationButtonClick={
-					this.handleNavigationButtonClick
-				}></Task1Page>
-		);
-		if (this.currentPage === "task2") {
-			page = (
-				<Task2Page
-					handleVideoPlay={this.handleVideoPlay}
-					handleNavigationButtonClick={
-						this.handleNavigationButtonClick
-					}></Task2Page>
-			);
-		}
-
-		console.log(this.state.currentPage);
+		// set the study task
+		const [task, totalTaskNum] = getStudyData(this.user, this.state.currentTask);
 
 		return (
 			<React.Fragment>
 				<UserProvider value={this.user}>
-					<Router>
-						<Redirect to={this.state.currentPage}></Redirect>
-						<Switch>
-							<Route
-								exact
-								path="/task1"
-								render={() => (
-									<Task1Page
-										videoId={this.state.videoId}
-										handleVideoPlay={this.handleVideoPlay}
-										handleNavigationButtonClick={
-											this.handleNavigationButtonClick
-										}></Task1Page>
-								)}></Route>
-							<Route
-								exact
-								path="/task2"
-								render={() => (
-									<Task2Page
-										handleVideoPlay={this.handleVideoPlay}
-										handleNavigationButtonClick={
-											this.handleNavigationButtonClick
-										}></Task2Page>
-								)}
-								handleVideoPlay={this.handleVideoPlay}
-								handleNavigationButtonClick={
-									this.handleNavigationButtonClick
-								}></Route>
-						</Switch>
-					</Router>
+					<TaskPage
+						videoId={this.state.videoId}
+						task={task}
+						handleVideoPlay={this.handleVideoPlay}
+						handleNavigationButtonClick={
+							this.handleNavigationButtonClick
+						}></TaskPage>
 				</UserProvider>
 			</React.Fragment>
 		);
 	}
 
-	handleNavigationButtonClick(currentPage, btn) {
-		let taskNum = parseInt(currentPage.split("task")[1]);
-		if (taskNum === 2 && btn === "next") return;
-		if (taskNum === 1 && btn === "prev") return;
-
+	handleNavigationButtonClick(btn) {
+		const [task, totalTaskNum] = getStudyData(this.user, this.state.currentTask);
 		if (btn === "next") {
-			taskNum += 1;
+			if (this.state.currentTask >= totalTaskNum - 1) return;
+			this.setState({ currentTask: this.state.currentTask + 1 });
 		} else if (btn === "prev") {
-			taskNum -= 1;
-		} else {
-			return;
+			if (this.state.currentTask <= 0) return;
+			this.setState({ currentTask: 0 });
 		}
-
-		this.setState({ currentPage: `task${taskNum}` });
 	}
 
 	handleVideoPlay(videoUrl) {
