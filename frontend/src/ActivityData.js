@@ -10,6 +10,10 @@ export default function getStudyData(participant, taskNum) {
 			{ video: 0, pers: "pers1", task: "task2" },
 			{ video: 1, pers: "pers2", task: "task2" },
 			{ video: 0, pers: "pers3", task: "task2" },
+			{ video: 0, video2: 1, pers: "pers2", task: "task3" },
+			{ video: 1, video2: 0, pers: "pers1", task: "task3" },
+			{ video: 0, video2: 1, pers: "pers3", task: "task3" },
+			{ video: 0, task: "task4" },
 		],
 		p2: [
 			{ video: 1, pers: "pers2", task: "task1" },
@@ -18,6 +22,10 @@ export default function getStudyData(participant, taskNum) {
 			{ video: 1, pers: "pers2", task: "task2" },
 			{ video: 0, pers: "pers1", task: "task2" },
 			{ video: 1, pers: "pers3", task: "task2" },
+			{ video: 1, video2: 0, pers: "pers2", task: "task3" },
+			{ video: 0, video2: 1, pers: "pers1", task: "task3" },
+			{ video: 1, video2: 0, pers: "pers3", task: "task3" },
+			{ video: 1, task: "task4" },
 		],
 	};
 
@@ -34,6 +42,8 @@ export default function getStudyData(participant, taskNum) {
 	const task = userTaskSequence[taskNum];
 
 	task.activityUrl = videoList[task["video"]];
+	task.activityUrl2 = videoList[task["video2"]];
 	task.activityName = activityList[task["video"]];
+	task.activityName2 = activityList[task["video2"]];
 	return [task, userTaskSequence.length];
 }

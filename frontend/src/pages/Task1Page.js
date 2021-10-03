@@ -12,6 +12,10 @@ export default function Task1Page(props) {
 			<div id="left-and-right-panes-container">
 				<div id="left-pane-div">
 					<div id="task-description-div">
+						<p style={{ margin: 0 }}>
+							<b>Task description (please read carefully)</b>
+						</p>
+
 						<TaskDescription
 							id="task-description-1"
 							description={props.taskDescription}
@@ -29,7 +33,7 @@ export default function Task1Page(props) {
 					</div>
 				</div>
 				<div id="right-pane-div">
-					<h5 style={{ marginBottom: "3px" }}>Please type here</h5>
+					<h4 style={{ marginBottom: "3px" }}>Please type here</h4>
 					<DescriptionPane id="description-pane" width={550} height={600} />
 				</div>
 			</div>

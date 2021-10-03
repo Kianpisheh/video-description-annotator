@@ -23,7 +23,7 @@ export default class DescriptionPane extends React.Component {
     }
 
     render() {
-        const { rows, cols, options } = this.props;
+        const { rows, cols, options, height, width } = this.props;
 
         return (
             <div
@@ -36,7 +36,8 @@ export default class DescriptionPane extends React.Component {
                     justifyContent: "flex-start",
                     padding: "10px",
                     boxShadow: "1px 3px 8px #c9c9c9be",
-                    height: "75%",
+                    width: width,
+                    height: height,
                     overflow: "auto",
                 }}
             >
@@ -157,17 +158,21 @@ export default class DescriptionPane extends React.Component {
 
 function AddButton(props) {
     return (
-        <button
-            id="add-btn"
-            style={{
-                width: "auto",
-                height: "auto",
-                backgroundColor: "transparent",
-                marginTop: "10px",
-            }}
-            onClick={props.handleClick}
-        >
-            <img id="add-btn-img" src={add_btn} alt="+"></img>
-        </button>
+        <React.Fragment>
+            <button
+                id="add-btn"
+                style={{
+                    border: "none",
+                    cursor: "pointer",
+                    width: "auto",
+                    height: "auto",
+                    backgroundColor: "transparent",
+                    marginTop: "10px",
+                }}
+                onClick={props.handleClick}
+            >
+                <img id="add-btn-img" src={add_btn} alt="+"></img>
+            </button>
+        </React.Fragment >
     );
 }

@@ -1,5 +1,5 @@
 
-export async function sendDataToServer(data, sessionTime, videoID, user) {
+export async function sendDataToServer2(data, sessionTime, videoID, user) {
 
     data = pruneData(data);
 
@@ -23,3 +23,6 @@ function pruneData(data) {
 
     return newData
 }
+
+
+export async function sendDataToServer()

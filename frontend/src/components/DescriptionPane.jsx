@@ -4,7 +4,7 @@ import "./DescriptionPane.css";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import StepDescription from "./StepDescription";
-import { sendDataToServer } from "../apiCalls";
+import { sendDataToServer2 } from "../apiCalls";
 
 import UserContext from "../contexts/UserContext";
 
@@ -119,17 +119,7 @@ export default class DescriptionPane extends React.Component {
 	}
 
 	handleWindowResize() {
-		// const windowWidth = window.innerWidth;
-		// const windowHeight = window.innerHeight;
-		// if (windowWidth < 1600) {
-		//     let paneContainer = document.getElementById("description-pane-container");
-		// 	paneContainer.style.width = 490;
-		// } else {
-		// 	let paneContainer = document.getElementById("description-pane-container");
-		// 	paneContainer.style.width = 550;
-		// }
-		// console.log("width: ", windowWidth);
-		// console.log("height: ", windowHeight);
+
 	}
 
 	getSessionTime() {
@@ -180,7 +170,7 @@ export default class DescriptionPane extends React.Component {
 		steps.splice(destinationStepIndex + destinationOffset, 0, steps[sourceStepIndex]);
 		// remove the old copy of source step
 		steps.splice(sourceStepIndex + sourceOffset, 1);
-		sendDataToServer(items, this.sessionTime, this.props.videoID, this.context);
+		sendDataToServer2(items, this.sessionTime, this.props.videoID, this.context);
 		this.setState({ descriptions: steps.flat() });
 	}
 
@@ -208,7 +198,7 @@ export default class DescriptionPane extends React.Component {
 		} else if (txt === "" && items.length > 1) {
 			items = this.removeWritingStep(items);
 		}
-		//sendDataToServer(items, this.sessionTime, this.props.videoID, this.props.user);
+		//sendDataToServer2(items, this.sessionTime, this.props.videoID, this.props.user);
 		this.setState({ descriptions: items });
 	}
 
@@ -251,7 +241,7 @@ export default class DescriptionPane extends React.Component {
 				// do not delete everything
 				if (descIndexList.length < items.length) {
 					items = this.deleteItems(items, descIndexList);
-					sendDataToServer(
+					sendDataToServer2(
 						items,
 						this.sessionTime,
 						this.props.videoID,
@@ -279,7 +269,7 @@ export default class DescriptionPane extends React.Component {
 				[items, newStepIndex] = this.addStepAfter(items, key, "writing", null);
 				items[newStepIndex].selected = true;
 				items[newStepIndex].mode = "writing";
-				sendDataToServer(
+				sendDataToServer2(
 					items,
 					this.sessionTime,
 					this.props.videoID,
@@ -315,7 +305,7 @@ export default class DescriptionPane extends React.Component {
 								descIndexList,
 								"level_increase"
 							);
-							sendDataToServer(
+							sendDataToServer2(
 								items,
 								this.sessionTime,
 								this.props.videoID,
@@ -334,7 +324,7 @@ export default class DescriptionPane extends React.Component {
 							descIndexList,
 							"level_decrease"
 						);
-						sendDataToServer(
+						sendDataToServer2(
 							items,
 							this.sessionTime,
 							this.props.videoID,

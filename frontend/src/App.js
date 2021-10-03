@@ -30,7 +30,7 @@ class App extends React.Component {
 		}
 
 		// set the study task
-		const [task, totalTaskNum] = getStudyData(this.user, this.state.currentTask);
+		const [task, _] = getStudyData(this.user, this.state.currentTask);
 
 		return (
 			<React.Fragment>
@@ -48,13 +48,13 @@ class App extends React.Component {
 	}
 
 	handleNavigationButtonClick(btn) {
-		const [task, totalTaskNum] = getStudyData(this.user, this.state.currentTask);
+		const [_, totalTaskNum] = getStudyData(this.user, this.state.currentTask);
 		if (btn === "next") {
 			if (this.state.currentTask >= totalTaskNum - 1) return;
 			this.setState({ currentTask: this.state.currentTask + 1 });
 		} else if (btn === "prev") {
 			if (this.state.currentTask <= 0) return;
-			this.setState({ currentTask: 0 });
+			this.setState({ currentTask: this.state.currentTask - 1 });
 		}
 	}
 
