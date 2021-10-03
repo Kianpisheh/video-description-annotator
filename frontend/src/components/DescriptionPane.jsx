@@ -4,9 +4,8 @@ import "./DescriptionPane.css";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 import StepDescription from "./StepDescription";
-import { sendDataToServer2 } from "../apiCalls";
 
-import UserContext from "../contexts/UserContext";
+import StudyDataContext from "../contexts/StudyDataContext";
 
 export default class DescriptionPane extends React.Component {
 	constructor(props) {
@@ -44,12 +43,9 @@ export default class DescriptionPane extends React.Component {
 		this.handleWindowResize = this.handleWindowResize.bind(this);
 	}
 
-	static contextType = UserContext;
+	static contextType = StudyDataContext;
 
 	render() {
-		if (this.counter === 2) {
-			this.sessionTime = this.getSessionTime();
-		}
 
 		let descriptionListG = this.groupDescriptions([...this.state.descriptions]);
 
@@ -170,7 +166,8 @@ export default class DescriptionPane extends React.Component {
 		steps.splice(destinationStepIndex + destinationOffset, 0, steps[sourceStepIndex]);
 		// remove the old copy of source step
 		steps.splice(sourceStepIndex + sourceOffset, 1);
-		sendDataToServer2(items, this.sessionTime, this.props.videoID, this.context);
+		const { task, user, sessionTime } = this.context;
+		this.props.handleNewData({ propositions: items, user: user, sessionTime: sessionTime, task: task });
 		this.setState({ descriptions: steps.flat() });
 	}
 
@@ -198,7 +195,6 @@ export default class DescriptionPane extends React.Component {
 		} else if (txt === "" && items.length > 1) {
 			items = this.removeWritingStep(items);
 		}
-		//sendDataToServer2(items, this.sessionTime, this.props.videoID, this.props.user);
 		this.setState({ descriptions: items });
 	}
 
@@ -241,12 +237,8 @@ export default class DescriptionPane extends React.Component {
 				// do not delete everything
 				if (descIndexList.length < items.length) {
 					items = this.deleteItems(items, descIndexList);
-					sendDataToServer2(
-						items,
-						this.sessionTime,
-						this.props.videoID,
-						this.context
-					);
+					const { task, user, sessionTime } = this.context;
+					this.props.handleNewData({ propositions: items, user: user, sessionTime: sessionTime, task: task });
 					this.setState({ descriptions: items });
 				}
 			}
@@ -269,12 +261,8 @@ export default class DescriptionPane extends React.Component {
 				[items, newStepIndex] = this.addStepAfter(items, key, "writing", null);
 				items[newStepIndex].selected = true;
 				items[newStepIndex].mode = "writing";
-				sendDataToServer2(
-					items,
-					this.sessionTime,
-					this.props.videoID,
-					this.context
-				);
+				const { task, user, sessionTime } = this.context;
+				this.props.handleNewData({ propositions: items, user: user, sessionTime: sessionTime, task: task });
 				this.setState({ descriptions: items });
 			}
 		}
@@ -305,12 +293,8 @@ export default class DescriptionPane extends React.Component {
 								descIndexList,
 								"level_increase"
 							);
-							sendDataToServer2(
-								items,
-								this.sessionTime,
-								this.props.videoID,
-								this.context
-							);
+							const { task, user, sessionTime } = this.context;
+							this.props.handleNewData({ propositions: items, user: user, sessionTime: sessionTime, task: task });
 							this.setState({ descriptions: items });
 						}
 					}
@@ -324,12 +308,8 @@ export default class DescriptionPane extends React.Component {
 							descIndexList,
 							"level_decrease"
 						);
-						sendDataToServer2(
-							items,
-							this.sessionTime,
-							this.props.videoID,
-							this.context
-						);
+						const { task, user, sessionTime } = this.context;
+						this.props.handleNewData({ propositions: items, user: user, sessionTime: sessionTime, task: task });
 						this.setState({ descriptions: items });
 					}
 				}

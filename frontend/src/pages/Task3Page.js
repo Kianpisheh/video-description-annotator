@@ -44,7 +44,8 @@ export default function Task3Page(props) {
 						height={"50vh"}
 						rows={5}
 						cols={35}
-						options={["sometimes", "usually", "always"]}></PropositionsPane>
+						options={["sometimes", "usually", "always"]}
+						handleNewData={props.handleNewData}></PropositionsPane>
 				</div>
 			</div>
 			<div id="task-navigation-div">

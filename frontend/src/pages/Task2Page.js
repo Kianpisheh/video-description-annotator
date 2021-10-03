@@ -38,7 +38,7 @@ export default function Task2Page(props) {
 						rows={5}
 						cols={35}
 						options={["sometimes", "usually", "always"]}
-						handleNewData={sendDataToServer}></PropositionsPane>
+						handleNewData={props.handleNewData}></PropositionsPane>
 				</div>
 			</div>
 			<div id="task-navigation-div">

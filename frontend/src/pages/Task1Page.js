@@ -34,7 +34,13 @@ export default function Task1Page(props) {
 				</div>
 				<div id="right-pane-div">
 					<h4 style={{ marginBottom: "3px" }}>Please type here</h4>
-					<DescriptionPane id="description-pane" width={550} height={600} />
+					<DescriptionPane
+						key="description-pane-t1p3"
+						id="description-pane"
+						width={550}
+						height={600}
+						handleNewData={props.handleNewData}
+					/>
 				</div>
 			</div>
 			<div id="task-navigation-div">

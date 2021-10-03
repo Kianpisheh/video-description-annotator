@@ -25,7 +25,8 @@ export default function Task3PagePers1(props) {
 						cols={35}
 						width={420}
 						height={"50vh"}
-						options={["sometimes", "usually", "always"]}></PropositionsPane>
+						options={["sometimes", "usually", "always"]}
+						handleNewData={props.handleNewData}></PropositionsPane>
 				</div>
 			</div>
 			<div id="task-navigation-div">

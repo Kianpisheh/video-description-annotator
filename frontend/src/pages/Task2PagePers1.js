@@ -25,6 +25,7 @@ export default function Task2PagePers1(props) {
 						cols={35}
 						width={420}
 						height={"50vh"}
+						handleNewData={props.handleNewData}
 						options={["sometimes", "usually", "always"]}></PropositionsPane>
 				</div>
 			</div>

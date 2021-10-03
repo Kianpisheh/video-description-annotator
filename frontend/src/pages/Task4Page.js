@@ -11,7 +11,7 @@ export default function Task4Page(props) {
 		<div id="main-container">
 			<h1>Task 4</h1>
 			<div id="panes-container">
-				{props.taskDescriptions.map((taskDescription) => (
+				{props.taskDescriptions.map((taskDescription, index) => (
 					<div className="single-pane-container">
 						<div className="description-container">
 							<p style={{ margin: 0 }}>
@@ -23,15 +23,14 @@ export default function Task4Page(props) {
 								width={420}></TaskDescription>
 						</div>
 						<PropositionsPane
+							key={index}
+							id={index}
 							width={420}
 							height={"45vh"}
 							rows={5}
 							cols={35}
-							options={[
-								"sometimes",
-								"usually",
-								"always",
-							]}></PropositionsPane>
+							options={["sometimes", "usually", "always"]}
+							handleNewData={props.handleNewData}></PropositionsPane>
 					</div>
 				))}
 			</div>

@@ -2,6 +2,7 @@ import React from "react";
 import StepProposition from "./StepProposition";
 
 import add_btn from "../statics/add_btn.svg";
+import StudyDataContext from "../contexts/StudyDataContext";
 
 export default class DescriptionPane extends React.Component {
     constructor(props) {
@@ -21,6 +22,9 @@ export default class DescriptionPane extends React.Component {
         this.counter = 0;
         this.state = { propositions: [this.createProposition(this.counter)] };
     }
+
+    static contextType = StudyDataContext;
+
 
     render() {
         const { rows, cols, options, height, width } = this.props;
@@ -77,6 +81,9 @@ export default class DescriptionPane extends React.Component {
                 propositions[i].selected = false;
             }
         }
+        let { task, user, sessionTime } = this.context;
+        task.task4idx = this.props.id;
+        this.props.handleNewData({ propositions: propositions, user: user, sessionTime: sessionTime, task: task })
         this.setState({ propositions: propositions });
     }
 
@@ -90,12 +97,14 @@ export default class DescriptionPane extends React.Component {
                 propositions[i].selected = true;
             }
         }
+        let { task, user, sessionTime } = this.context;
+        task.task4idx = this.props.id;
+        this.props.handleNewData({ propositions: propositions, user: user, sessionTime: sessionTime, task: task })
         this.setState({ propositions: propositions });
     }
 
     // get called onBLur
     handlePropositionUnselected(propositionKey, text, event) {
-        console.log(event);
         let propositions = [...this.state.propositions];
         const idx = this.getIndex(propositions, propositionKey);
         propositions[idx].selected = false;
@@ -106,11 +115,12 @@ export default class DescriptionPane extends React.Component {
         if (event.relatedTarget) {
             let tid = event.relatedTarget.id;
             if (tid === "add-btn" || tid.slice(0, 9) === "radio-btn") {
-                console.log("return")
                 return
             }
         }
-
+        let { task, user, sessionTime } = this.context;
+        task.task4idx = this.props.id;
+        this.props.handleNewData({ propositions: propositions, user: user, sessionTime: sessionTime, task: task })
         this.setState({ propositions: propositions });
     }
 
@@ -121,6 +131,9 @@ export default class DescriptionPane extends React.Component {
         propositions = this.removeEmptyProposition(propositions, false);
         propositions.push(this.createProposition(this.counter));
 
+        let { task, user, sessionTime } = this.context;
+        task.task4idx = this.props.id;
+        this.props.handleNewData({ propositions: propositions, user: user, sessionTime: sessionTime, task: task })
         this.setState({ propositions: propositions });
     }
 

@@ -4,7 +4,7 @@ import DescriptionPane from "../components/DescriptionPane";
 import TaskDescription from "../components/TaskDescription";
 import TaskNavigation from "../components/TaskNavigation";
 
-export default function Task1Page(props) {
+export default function Task1PagePers1(props) {
 	return (
 		<div id="main-container">
 			<div id="main-pane">
@@ -24,7 +24,12 @@ export default function Task1Page(props) {
 					<h4 style={{ marginBottom: "3px", alignSelf: "flex-start" }}>
 						Please type here
 					</h4>
-					<DescriptionPane id="description-pane" width={550} height={"50vh"} />
+					<DescriptionPane
+						id="description-pane"
+						width={550}
+						height={"50vh"}
+						handleNewData={props.handleNewData}
+					/>
 				</div>
 				<div id="task-navigation-div">
 					<TaskNavigation

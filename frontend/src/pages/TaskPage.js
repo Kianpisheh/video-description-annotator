@@ -1,12 +1,23 @@
+import { useContext } from "react";
+
 import Task1Page from "./Task1Page";
 import Task2Page from "./Task2Page";
 import Task3Page from "./Task3Page";
 import Task1PagePers1 from "./Task1PagePers1";
 import Task2PagePers1 from "./Task2PagePers1";
 import Task3PagePers1 from "./Task3PagePers1";
+import Task1PagePers2 from "./Task1PagePers2";
+import Task2PagePers2 from "./Task2PagePers2";
+import Task3PagePers2 from "./Task3PagePers2";
 import Task4Page from "./Task4Page";
 
+import StudyDataContext from "../contexts/StudyDataContext";
+
+import { sendDataToServer } from "../apiCalls";
+
 export default function TaskPage(props) {
+	const studyDataContext = useContext(StudyDataContext);
+
 	const {
 		pers,
 		activityUrl,
@@ -14,7 +25,7 @@ export default function TaskPage(props) {
 		activityName,
 		activityName2,
 		task,
-	} = props.task;
+	} = studyDataContext.task;
 
 	if (task === "task1") {
 		if (pers === "pers3") {
@@ -25,6 +36,7 @@ export default function TaskPage(props) {
 				<Task1Page
 					videoUrl={activityUrl}
 					taskDescription={taskDescription}
+					handleNewData={sendDataToServer}
 					handleVideoPlay={props.handleVideoPlay}
 					handleNavigationButtonClick={
 						props.handleNavigationButtonClick
@@ -36,6 +48,7 @@ export default function TaskPage(props) {
 				<Task1PagePers1
 					videoUrl={activityUrl}
 					taskDescription={taskDescription}
+					handleNewData={sendDataToServer}
 					handleVideoPlay={props.handleVideoPlay}
 					handleNavigationButtonClick={
 						props.handleNavigationButtonClick
@@ -44,13 +57,14 @@ export default function TaskPage(props) {
 		} else if (pers === "pers2") {
 			const taskDescription = `How do you describe the activity of ${`"${activityName}"`.bold()} to someone else in terms of the steps that he/she needs to take?`;
 			return (
-				<Task1PagePers1
+				<Task1PagePers2
 					taskDescription={taskDescription}
 					videoUrl={activityUrl}
+					handleNewData={sendDataToServer}
 					handleVideoPlay={props.handleVideoPlay}
 					handleNavigationButtonClick={
 						props.handleNavigationButtonClick
-					}></Task1PagePers1>
+					}></Task1PagePers2>
 			);
 		}
 	} else if (task === "task2") {
@@ -61,6 +75,7 @@ export default function TaskPage(props) {
 				<Task2Page
 					videoUrl={activityUrl}
 					taskDescription={taskDescription}
+					handleNewData={sendDataToServer}
 					handleVideoPlay={props.handleVideoPlay}
 					handleNavigationButtonClick={
 						props.handleNavigationButtonClick
@@ -73,6 +88,7 @@ export default function TaskPage(props) {
 				<Task2PagePers1
 					videoUrl={activityUrl}
 					taskDescription={taskDescription}
+					handleNewData={sendDataToServer}
 					handleVideoPlay={props.handleVideoPlay}
 					handleNavigationButtonClick={
 						props.handleNavigationButtonClick
@@ -82,13 +98,14 @@ export default function TaskPage(props) {
 			const taskDescription =
 				"How do you characterize the activity which is performed by the actor in the video? Please write propositions that distinguish this activty from other activities.";
 			return (
-				<Task2PagePers1
+				<Task2PagePers2
 					videoUrl={activityUrl}
 					taskDescription={taskDescription}
+					handleNewData={sendDataToServer}
 					handleVideoPlay={props.handleVideoPlay}
 					handleNavigationButtonClick={
 						props.handleNavigationButtonClick
-					}></Task2PagePers1>
+					}></Task2PagePers2>
 			);
 		}
 	} else if (task === "task3") {
@@ -100,6 +117,7 @@ export default function TaskPage(props) {
 					videoUrl={activityUrl}
 					videoUrl2={activityUrl2}
 					taskDescription={taskDescription}
+					handleNewData={sendDataToServer}
 					handleVideoPlay={props.handleVideoPlay}
 					handleNavigationButtonClick={
 						props.handleNavigationButtonClick
@@ -111,6 +129,7 @@ export default function TaskPage(props) {
 				<Task3PagePers1
 					videoUrl={activityUrl}
 					taskDescription={taskDescription}
+					handleNewData={sendDataToServer}
 					handleNavigationButtonClick={
 						props.handleNavigationButtonClick
 					}></Task3PagePers1>
@@ -118,12 +137,13 @@ export default function TaskPage(props) {
 		} else if (pers === "pers2") {
 			const taskDescription = `How can you distinguish the activity ${`"${activityName}"`.bold()} from the activity ${`"${activityName2}"`.bold()}? Please wirte propositions that distinguish two activities from each other?`;
 			return (
-				<Task3PagePers1
+				<Task3PagePers2
 					videoUrl={activityUrl}
 					taskDescription={taskDescription}
+					handleNewData={sendDataToServer}
 					handleNavigationButtonClick={
 						props.handleNavigationButtonClick
-					}></Task3PagePers1>
+					}></Task3PagePers2>
 			);
 		}
 	} else if (task === "task4") {
@@ -142,6 +162,7 @@ export default function TaskPage(props) {
 		return (
 			<Task4Page
 				taskDescriptions={taskDescriptions}
+				handleNewData={sendDataToServer}
 				handleNavigationButtonClick={
 					props.handleNavigationButtonClick
 				}></Task4Page>
